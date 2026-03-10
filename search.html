@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Government Jobs, Results, Admit Cards – Naukari Result Hub</title>
+    <meta name="description"
+        content="Search across all government job notifications, results, admit cards, answer keys, and syllabus on Naukari Result Hub.">
+    <meta name="keywords"
+        content="search sarkari result, sarkari naukari search, govt job search, find government jobs 2026">
+    <link rel="canonical" href="search.html">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8244601197032455"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="header-top">Naukari Result Hub – Your Trusted Source for Government Job Updates</div>
+    <header class="site-header">
+        <div class="container nav-container">
+            <a class="logo" href="index.html">
+                <div class="logo-main">Naukari<span>Result Hub</span></div>
+                <div class="logo-sub">.in</div>
+            </a>
+            <button class="menu-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            <nav class="main-nav">
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="jobs.html">Latest Jobs</a>
+                <a class="nav-link" href="results.html">Results</a>
+                <a class="nav-link" href="admitcard.html">Admit Card</a>
+                <a class="nav-link" href="answerkey.html">Answer Key</a>
+                <a class="nav-link" href="syllabus.html">Syllabus</a>
+                <a class="nav-link" href="admission.html">Admission</a>
+            </nav>
+            <div class="header-search">
+                <input id="header-search-input" type="text" placeholder="Search exams, jobs..." aria-label="Search">
+                <button id="header-search-btn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Hero -->
+    <div class="search-hero">
+        <div class="container">
+            <h1><i class="fas fa-search"></i> Search Government Jobs & Exams</h1>
+            <div class="search-box-hero">
+                <input id="search-main-input" type="text" placeholder="e.g. SSC CGL, Railway, UPSC, Bihar Police...">
+                <button id="search-main-btn">Search</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="container animate-fade-in">
+        <p class="search-stats" id="search-stats"></p>
+        <div id="search-results"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>Naukari <span>Result Hub</span></h3>
+                    <p>India's leading portal for government job updates, results, admit cards, and more.</p>
+                    <div class="footer-socials">
+                        <a class="social-link" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-link" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="social-link" href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a class="social-link" href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <span class="footer-heading">Quick Links</span>
+                    <div class="footer-links">
+                        <a href="jobs.html">Latest Jobs</a>
+                        <a href="results.html">Sarkari Results</a>
+                        <a href="admitcard.html">Admit Card</a>
+                        <a href="answerkey.html">Answer Keys</a>
+                    </div>
+                </div>
+                <div>
+                    <span class="footer-heading">Resources</span>
+                    <div class="footer-links">
+                        <a href="syllabus.html">Syllabus</a>
+                        <a href="admission.html">Admission</a>
+                        <a href="important.html">Important</a>
+                        <a href="admin/index.html">Admin Panel</a>
+                    </div>
+                </div>
+                <div>
+                    <span class="footer-heading">Legal</span>
+                    <div class="footer-links">
+                        <a href="posts/contact-us.html">About Us</a>
+                        <a href="posts/contact-us.html">Contact Us</a>
+                        <a href="posts/privacy-policy.html">Privacy Policy</a>
+                        <a href="#">Disclaimer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2026 Naukari Result Hub. All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/postData.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // ── Search Page Logic ──────────────────────────────────
+        const catLabels = {
+            results: { label: 'Result', cls: 'cat-results' },
+            admitCards: { label: 'Admit Card', cls: 'cat-admitCards' },
+            latestJobs: { label: 'Latest Job', cls: 'cat-latestJobs' },
+            answerKeys: { label: 'Answer Key', cls: 'cat-answerKeys' },
+            syllabus: { label: 'Syllabus', cls: 'cat-syllabus' },
+            admissions: { label: 'Admission', cls: 'cat-admissions' },
+            important: { label: 'Important', cls: 'cat-important' }
+        };
+
+        function runSearch(query) {
+            const q = query.toLowerCase().trim();
+            const resultsDiv = document.getElementById('search-results');
+            const statsDiv = document.getElementById('search-stats');
+            if (!q) { resultsDiv.innerHTML = ''; statsDiv.textContent = ''; return; }
+            let found = 0;
+            let html = '';
+            for (const [cat, items] of Object.entries(siteData)) {
+                const lbl = catLabels[cat] || { label: cat, cls: '' };
+                items.forEach(item => {
+                    if (item.title.toLowerCase().includes(q)) {
+                        found++;
+                        html += `<a class="search-result-item" href="${item.link}">
+              <span class="result-title">${item.title}</span>
+              <span class="result-cat ${lbl.cls}">${lbl.label}</span>
+            </a>`;
+                    }
+                });
+            }
+            if (!html) {
+                html = `<div class="no-results"><i class="fas fa-search-minus"></i><p>No results found for "<strong>${query}</strong>"</p><p style="margin-top:0.5rem">Try different keywords like SSC, Railway, UPSC, Bihar Police…</p></div>`;
+            }
+            resultsDiv.innerHTML = html;
+            statsDiv.textContent = found > 0 ? `Found ${found} result${found !== 1 ? 's' : ''} for "${query}"` : '';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q') || '';
+            const input = document.getElementById('search-main-input');
+            if (input) input.value = q;
+            if (q) runSearch(q);
+
+            document.getElementById('search-main-btn').addEventListener('click', () => {
+                const q2 = document.getElementById('search-main-input').value.trim();
+                if (q2) { history.pushState({}, '', `?q=${encodeURIComponent(q2)}`); runSearch(q2); }
+            });
+            document.getElementById('search-main-input').addEventListener('keydown', e => {
+                if (e.key === 'Enter') document.getElementById('search-main-btn').click();
+            });
+        });
+    </script>
+</body>
+
+</html>
